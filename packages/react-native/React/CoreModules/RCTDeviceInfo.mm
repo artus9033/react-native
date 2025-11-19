@@ -15,6 +15,7 @@
 #import <React/RCTInitializing.h>
 #import <React/RCTInvalidating.h>
 #import <React/RCTUtils.h>
+#import <React/RCTLog.h>
 #import <atomic>
 
 #import "CoreModulesPlugins.h"
@@ -247,6 +248,7 @@ static NSDictionary *RCTExportedDimensions(CGFloat fontScale)
   // Report the event across the bridge.
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    RCTLog(@"EMIT");
     [[moduleRegistry moduleForName:"EventDispatcher"] sendDeviceEventWithName:@"didUpdateDimensions"
                                                                          body:[weakSelf _exportedDimensions]];
 #pragma clang diagnostic pop
@@ -276,6 +278,7 @@ static NSDictionary *RCTExportedDimensions(CGFloat fontScale)
   if ((isOrientationChanging || isResizingOrChangingToFullscreen) && RCTIsAppActive()) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    RCTLog(@"EMIT");
     [[_moduleRegistry moduleForName:"EventDispatcher"] sendDeviceEventWithName:@"didUpdateDimensions"
                                                                           body:[self _exportedDimensions]];
     // We only want to track the current _currentInterfaceOrientation and _isFullscreen only
@@ -303,6 +306,7 @@ static NSDictionary *RCTExportedDimensions(CGFloat fontScale)
   if (!([nextInterfaceDimensions isEqual:_currentInterfaceDimensions]) && RCTIsAppActive()) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    RCTLog(@"EMIT");
     [[_moduleRegistry moduleForName:"EventDispatcher"] sendDeviceEventWithName:@"didUpdateDimensions"
                                                                           body:nextInterfaceDimensions];
     // We only want to track the current _currentInterfaceOrientation only
